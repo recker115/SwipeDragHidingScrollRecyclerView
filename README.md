@@ -24,7 +24,7 @@ Add to **root** `build.gradle` :-
             app:swipe_background="@color/colorAccent"
             tools:itemCount="10"/>
             
- to layouts.xml and pass the attributes :-
+ to `layouts.xml` and pass the attributes :-
  
      app:swipe_icon="@drawable/ic_delete_sweep_black_24dp"
      app:swipe_background="@color/colorAccent"
