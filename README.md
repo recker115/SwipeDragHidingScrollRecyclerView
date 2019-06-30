@@ -1,6 +1,18 @@
 # SwipeDragHidingScrollRecyclerView
 
-Add 
+Add to **root** `build.gradle` :-
+
+    allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+ then add the following to app-level `build.gradle`
+ 
+    implementation 'com.github.recker115:SwipeDragHidingScrollRecyclerView:v0.1.0'
+    
+ Usage instruction :-
 
     <com.example.swiperecyclerview.SwipeRecyclerView
             android:id="@+id/rvSwipe"
