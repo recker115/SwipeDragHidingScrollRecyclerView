@@ -31,7 +31,7 @@ Add to **root** `build.gradle` :-
  
  i.e, the `swipe background color` and the `swipe background icon` that you wanna show when the user swipes.
  
- Finally the **last step** is to add the callback , *after the item is successfully swiped right or lef**
+ Finally the **last step** is to add the callback , *after the item is successfully swiped right or left**
  
      rvSwipe.setSwipeCallback(object : SwipeRecyclerView.SwipeCallBack {
             override fun onSwiped(position: Int, direction: Int) {
