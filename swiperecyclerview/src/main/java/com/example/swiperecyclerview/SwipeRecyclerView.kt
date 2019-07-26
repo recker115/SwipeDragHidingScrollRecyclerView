@@ -15,41 +15,53 @@ import androidx.recyclerview.widget.RecyclerView
 class SwipeRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(context, attrs) {
     var colorDrawable: ColorDrawable? = null
     var iconDrawable: Drawable? = null
-    var margin : Float = 0f
-    var swipeCallBack : SwipeCallBack ?= null
+    var margin: Float = 0f
+    var swipeCallBack: SwipeCallBack? = null
 
     /**
      *  Item touch helper callback object creation
      *  Anonymously
      */
-    val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
-            override fun onMove(recyclerView: RecyclerView, viewHolder: ViewHolder, target: ViewHolder): Boolean {
-                swipeCallBack?.onSwapped(viewHolder.adapterPosition, target.adapterPosition)
-                return true
-            }
-
-            override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
-                swipeCallBack?.onSwiped(viewHolder.adapterPosition, direction)
-            }
-
-            override fun onChildDraw(
-                c: Canvas,
-                recyclerView: RecyclerView,
-                viewHolder: ViewHolder,
-                dX: Float,
-                dY: Float,
-                actionState: Int,
-                isCurrentlyActive: Boolean
-            ) {
-                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
-                val itemView = viewHolder.itemView
-                val bounds = dX.toInt().getBounds(itemView)
-                colorDrawable?.setBounds(bounds[0], bounds[1], bounds[2], bounds[3])
-                colorDrawable?.draw(c)
-                iconDrawable?.setBounds(bounds[4], bounds[5], bounds[6], bounds[7])
-                iconDrawable?.draw(c)
-            }
+    val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(
+        ItemTouchHelper.UP or ItemTouchHelper.DOWN,
+        ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT
+    ) {
+        /**
+         * Call back set if the item is dragged up or down
+         */
+        override fun onMove(recyclerView: RecyclerView, viewHolder: ViewHolder, target: ViewHolder): Boolean {
+            swipeCallBack?.onSwapped(viewHolder.adapterPosition, target.adapterPosition)
+            return true
         }
+
+        /**
+         * Call back if item is swiped right or left
+         */
+        override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
+            swipeCallBack?.onSwiped(viewHolder.adapterPosition, direction)
+        }
+
+        /**
+         * Drawing the background of the swiped view
+         */
+        override fun onChildDraw(
+            c: Canvas,
+            recyclerView: RecyclerView,
+            viewHolder: ViewHolder,
+            dX: Float,
+            dY: Float,
+            actionState: Int,
+            isCurrentlyActive: Boolean
+        ) {
+            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            val itemView = viewHolder.itemView
+            val bounds = dX.toInt().getBounds(itemView)
+            colorDrawable?.setBounds(bounds[0], bounds[1], bounds[2], bounds[3])
+            colorDrawable?.draw(c)
+            iconDrawable?.setBounds(bounds[4], bounds[5], bounds[6], bounds[7])
+            iconDrawable?.draw(c)
+        }
+    }
     )
 
     /**
@@ -78,8 +90,8 @@ class SwipeRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(c
                 val iconTopToBottom = itemView.bottom - iconDrawable?.intrinsicHeight!!
                 leftIcon = itemView.left + margin.toInt()
                 topIcon = iconTopToBottom - (iconTopToBottom - itemView.top) / 2
-                rightIcon = leftIcon+ iconDrawable?.intrinsicWidth!!
-                bottomIcon = itemView.bottom - (iconTopToBottom - itemView.top) /2
+                rightIcon = leftIcon + iconDrawable?.intrinsicWidth!!
+                bottomIcon = itemView.bottom - (iconTopToBottom - itemView.top) / 2
 
             }
             this < 0 -> {
@@ -92,7 +104,7 @@ class SwipeRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(c
                 leftIcon = itemView.right - iconDrawable?.intrinsicWidth!! - margin.toInt()
                 topIcon = iconTopToBottom - (iconTopToBottom - itemView.top) / 2
                 rightIcon = itemView.right - margin.toInt()
-                bottomIcon = itemView.bottom - (iconTopToBottom - itemView.top) /2
+                bottomIcon = itemView.bottom - (iconTopToBottom - itemView.top) / 2
             }
         }
         bounds[0] = leftBackground
@@ -117,7 +129,8 @@ class SwipeRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(c
         for (index in 0 until typedArray.indexCount) {
             val attr = typedArray.getIndex(index)
             when (attr) {
-                R.styleable.SwipeRecyclerView_swipe_background -> colorDrawable = ColorDrawable(typedArray.getColor(attr, 0))
+                R.styleable.SwipeRecyclerView_swipe_background -> colorDrawable =
+                    ColorDrawable(typedArray.getColor(attr, 0))
                 R.styleable.SwipeRecyclerView_swipe_icon -> iconDrawable = typedArray.getDrawable(attr)
                 R.styleable.SwipeRecyclerView_icon_margin -> margin = typedArray.getDimension(attr, 0f)
             }
@@ -131,8 +144,8 @@ class SwipeRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(c
      *  and the direction
      */
     interface SwipeCallBack {
-        fun onSwiped(position : Int, direction : Int)
-        fun onSwapped(positionfrom : Int, positionTo : Int)
+        fun onSwiped(position: Int, direction: Int)
+        fun onSwapped(positionfrom: Int, positionTo: Int)
     }
 
     /**
