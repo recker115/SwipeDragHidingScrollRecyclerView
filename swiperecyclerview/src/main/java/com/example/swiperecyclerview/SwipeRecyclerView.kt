@@ -22,9 +22,10 @@ class SwipeRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(c
      *  Item touch helper callback object creation
      *  Anonymously
      */
-    val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
+    val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) {
             override fun onMove(recyclerView: RecyclerView, viewHolder: ViewHolder, target: ViewHolder): Boolean {
-                return false
+                swipeCallBack?.onSwapped(viewHolder.adapterPosition, target.adapterPosition)
+                return true
             }
 
             override fun onSwiped(viewHolder: ViewHolder, direction: Int) {
@@ -131,6 +132,7 @@ class SwipeRecyclerView(context: Context, attrs: AttributeSet?) : RecyclerView(c
      */
     interface SwipeCallBack {
         fun onSwiped(position : Int, direction : Int)
+        fun onSwapped(positionfrom : Int, positionTo : Int)
     }
 
     /**

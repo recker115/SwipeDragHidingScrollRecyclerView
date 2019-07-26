@@ -15,11 +15,14 @@ class MainActivity : AppCompatActivity() {
 
         rvSwipe.adapter = SwipeAdapter(list)
         rvSwipe.layoutManager = LinearLayoutManager(this)
-       /* rvSwipe.setSwipeCallback(object : SwipeRecyclerView.SwipeCallBack {
+        rvSwipe.setSwipeCallback(object : SwipeRecyclerView.SwipeCallBack {
             override fun onSwiped(position: Int, direction: Int) {
                 list.removeAt(position)
                 rvSwipe.adapter?.notifyDataSetChanged()
             }
-        })*/
+
+            override fun onSwapped(positionfrom: Int, positionTo: Int) {
+            }
+        })
     }
 }

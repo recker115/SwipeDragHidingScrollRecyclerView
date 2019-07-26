@@ -37,4 +37,5 @@ dependencies {
     //design
     implementation 'com.google.android.material:material:1.1.0-alpha07'
     implementation project(path: ':swiperecyclerview')
+
 }
