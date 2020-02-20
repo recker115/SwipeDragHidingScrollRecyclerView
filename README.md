@@ -10,7 +10,7 @@ Add to **root** `build.gradle` :-
 	}
  then add the following to app-level `build.gradle`
  
-    implementation 'com.github.recker115:SwipeDragHidingScrollRecyclerView:v0.1.0'
+    implementation '<div class="text-purple"> com.github.recker115:SwipeDragHidingScrollRecyclerView:v0.1.0 </div>'
     
  Usage instruction :-
 
